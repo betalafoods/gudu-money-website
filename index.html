@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gudu Money — Fast Digital Loans</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a href="#top" class="logo">Gudu<span>Money</span></a>
+
+    <nav class="nav" id="nav">
+      <a href="#calculator">Calculator</a>
+      <a href="#how-it-works">How it Works</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#apply" class="btn btn-primary btn-sm">Apply Now</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="badge badge-lime">100% Digital · No Paperwork</span>
+        <h1>Get the loan you need, <span class="text-orange">in minutes</span>.</h1>
+        <p class="hero-sub">Gudu Money gives you instant personal loans with transparent pricing, flexible tenure, and zero hidden charges. Apply online, get approved, get funded — all from your phone.</p>
+        <div class="hero-cta">
+          <a href="#calculator" class="btn btn-primary">Check Eligibility</a>
+          <a href="#apply" class="btn btn-outline">Apply Now</a>
+        </div>
+        <p class="hero-disclaimer">This is a demo website with placeholder content.</p>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-card">
+          <div class="hero-card-row">
+            <span>Loan Amount</span>
+            <strong>₹2,50,000</strong>
+          </div>
+          <div class="hero-card-row">
+            <span>Tenure</span>
+            <strong>24 months</strong>
+          </div>
+          <div class="hero-card-row highlight">
+            <span>Monthly EMI</span>
+            <strong>₹11,978</strong>
+          </div>
+          <div class="hero-card-status">✓ Pre-approved</div>
+        </div>
+        <div class="glow-blob glow-pink"></div>
+        <div class="glow-blob glow-blue"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="trust-strip">
+    <div class="container trust-inner">
+      <div class="trust-stat"><strong>₹500Cr+</strong><span>Loans Disbursed</span></div>
+      <div class="trust-stat"><strong>20L+</strong><span>Happy Customers</span></div>
+      <div class="trust-stat"><strong>4.7★</strong><span>App Rating</span></div>
+      <div class="trust-stat"><strong>10 min</strong><span>Avg. Approval Time</span></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title">Why choose Gudu Money</h2>
+      <p class="section-sub">Built for speed, transparency, and trust.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon icon-lime">⚡</div>
+          <h3>Instant Approval</h3>
+          <p>Get a lending decision in as little as 10 minutes with our automated underwriting.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon icon-pink">📄</div>
+          <h3>Minimal Documents</h3>
+          <p>Just your ID and income proof. No branch visits, no paperwork stacks.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon icon-blue">📆</div>
+          <h3>Flexible Tenure</h3>
+          <p>Choose repayment terms from 3 to 60 months to fit your budget.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon icon-lime">🔍</div>
+          <h3>Transparent Pricing</h3>
+          <p>See your exact EMI, interest, and fees upfront — no surprises later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR -->
+  <section class="calculator" id="calculator">
+    <div class="container">
+      <h2 class="section-title">Loan EMI Calculator</h2>
+      <p class="section-sub">Estimate your monthly payment in seconds.</p>
+
+      <div class="calc-card">
+        <div class="calc-inputs">
+
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label for="loanAmount">Loan Amount</label>
+              <span class="calc-value"><span>₹</span><span id="loanAmountValue">2,50,000</span></span>
+            </div>
+            <input type="range" id="loanAmount" min="10000" max="2000000" step="5000" value="250000">
+          </div>
+
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label for="tenure">Tenure</label>
+              <span class="calc-value"><span id="tenureValue">24</span><span> months</span></span>
+            </div>
+            <input type="range" id="tenure" min="3" max="60" step="1" value="24">
+          </div>
+
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label for="interestRate">Interest Rate</label>
+              <span class="calc-value"><span id="interestRateValue">12.5</span><span>% p.a.</span></span>
+            </div>
+            <input type="range" id="interestRate" min="6" max="30" step="0.1" value="12.5">
+          </div>
+
+        </div>
+
+        <div class="calc-results">
+          <div class="calc-emi">
+            <span>Monthly EMI</span>
+            <strong id="emiOutput">₹0</strong>
+          </div>
+
+          <div class="calc-breakdown-bar" id="breakdownBar">
+            <div class="bar-principal" id="barPrincipal"></div>
+            <div class="bar-interest" id="barInterest"></div>
+          </div>
+          <div class="calc-breakdown-legend">
+            <span><i class="dot dot-principal"></i>Principal</span>
+            <span><i class="dot dot-interest"></i>Interest</span>
+          </div>
+
+          <div class="calc-totals">
+            <div>
+              <span>Principal Amount</span>
+              <strong id="principalOutput">₹0</strong>
+            </div>
+            <div>
+              <span>Total Interest</span>
+              <strong id="interestOutput">₹0</strong>
+            </div>
+            <div>
+              <span>Total Payment</span>
+              <strong id="totalOutput">₹0</strong>
+            </div>
+          </div>
+
+          <a href="#apply" class="btn btn-primary btn-block">Apply for this Loan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How it works</h2>
+      <p class="section-sub">Three simple steps to get funded.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Apply Online</h3>
+          <p>Fill a quick form with your basic details — takes under 3 minutes.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Get Verified</h3>
+          <p>Upload your ID and income proof. Our system verifies you instantly.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Get Funded</h3>
+          <p>Approved funds are disbursed directly to your bank account.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <h2 class="section-title">Loved by our customers</h2>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <p>"I applied at night and had the money in my account before I woke up. Ridiculously fast."</p>
+          <div class="testimonial-author">— Ananya R.</div>
+        </div>
+        <div class="testimonial-card">
+          <p>"No hidden fees, no confusing terms. Exactly what they said the EMI would be."</p>
+          <div class="testimonial-author">— Rohit K.</div>
+        </div>
+        <div class="testimonial-card">
+          <p>"The calculator helped me plan my budget before I even applied. Super useful."</p>
+          <div class="testimonial-author">— Meera S.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2 class="section-title">Frequently asked questions</h2>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Who can apply for a Gudu Money loan?</summary>
+          <p>Any salaried or self-employed individual aged 21–58 with a steady source of income can apply, subject to eligibility checks.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How fast will I get the money?</summary>
+          <p>Most approved applicants receive funds within 24 hours of final approval, some in as little as 10 minutes.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What documents do I need?</summary>
+          <p>A government-issued ID, address proof, and recent income proof (salary slips or bank statements).</p>
+        </details>
+        <details class="faq-item">
+          <summary>Are there any hidden charges?</summary>
+          <p>No. Your interest rate, processing fee, and total repayment amount are shown upfront before you accept the loan.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I repay my loan early?</summary>
+          <p>Yes, you can foreclose your loan anytime after the first 3 EMIs with minimal foreclosure charges.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" id="apply">
+    <div class="container final-cta-inner">
+      <h2>Ready to get started?</h2>
+      <p>Check your eligibility in under a minute — no impact on your credit score.</p>
+      <a href="#top" class="btn btn-primary btn-lg">Apply Now</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#top" class="logo">Gudu<span>Money</span></a>
+      <p>Fast, transparent digital lending.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+  <div class="container">
+    <p class="footer-disclaimer">Gudu Money is a demo/placeholder brand created for illustrative purposes only. This site is not affiliated with any real lending entity and does not process real loan applications.</p>
+    <p class="footer-copyright">© 2026 Gudu Money. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
