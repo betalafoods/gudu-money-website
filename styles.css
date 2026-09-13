@@ -450,3 +450,40 @@ input[type="range"] { margin-block: 15px; }
 }
 @media (max-height: 720px) { .guide-media { aspect-ratio: 16 / 5; min-height: 125px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .sea, .spray, .flare { display: none; } }
+/* Company, policy and lending partner directory */
+.section-intro { max-width: 65ch; margin: 1.4rem 0 2.5rem; }
+.company-grid, .policy-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.2rem; }
+.info-card, .policy-card, .partner-card { border: 1px solid #d4e0db; border-radius: 20px; padding: 1.6rem; background: #fff; overflow-wrap: anywhere; }
+.info-card h3, .policy-card h3 { margin-bottom: 1rem; font-size: 1.2rem; }
+.info-card p, .info-card dl { margin: 0; }
+.info-card address { font-style: normal; color: var(--ink-soft); }
+.info-card dt { color: var(--ink-soft); font-size: .95rem; margin-top: .6rem; }
+.info-card dd { margin: 0; font-weight: 700; }
+.info-card a, .partner-card a, .section-intro a { text-underline-offset: 4px; }
+.source-note { font-size: .94rem; margin: 1.7rem 0 0; }
+.policy-card { background: #103d48; border-color: #557780; display: flex; flex-direction: column; align-items: start; }
+.policy-card p { color: #d3e4e7; margin-top: 0; }
+.policy-card a { color: var(--gold); margin-top: auto; font-weight: 700; text-underline-offset: 4px; }
+.policy-requests { margin-top: 2rem; padding: 1.6rem; border: 1px solid #557780; border-radius: 20px; }
+.policy-requests p { color: #d3e4e7; max-width: 75ch; }
+.policy-requests ul { padding: 0; list-style: none; }
+.policy-requests li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1.5rem; padding: .8rem 0; border-top: 1px solid #ffffff26; }
+.policy-requests a { color: var(--gold); }
+.resource-links, .footer-resources { display: flex; flex-wrap: wrap; gap: 1rem 1.6rem; margin-top: 1.5rem; }
+.resource-links a { color: var(--gold); }
+.partner-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.2rem; }
+.partner-card .kicker { font-size: .82rem; letter-spacing: .06em; }
+.partner-card h3 { font-size: 1.7rem; }
+.partner-card ul { list-style: none; padding: 0; margin-bottom: 0; display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; }
+.partner-card li a { display: inline-block; padding-block: .35rem; color: #0b5660; font-weight: 650; }
+.disclosure-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.3rem; margin-block: 2.5rem; }
+.disclosure-grid div { border-left: 2px solid var(--gold); padding-left: 1.2rem; }
+.disclosure-grid strong { display: block; font-size: clamp(1.25rem,2vw,1.75rem); color: var(--gold); }
+.disclosure-grid span { display: block; margin-top: .5rem; }
+.footer-resources { grid-column: 1 / -1; margin: 0; }
+.voice-controls { display: flex; gap: .8rem; align-items: center; }
+.voice-status { font-size: .85rem; line-height: 1.5; color: #d3e4e7; margin: 0; }
+.guide:lang(hi) { font-family: 'Nirmala UI', 'Mangal', var(--body); }
+.guide:lang(hi) .caption { line-height: 1.9; }
+@media (max-width: 1000px) { .company-grid, .policy-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 600px) { .company-grid, .policy-grid, .partner-grid, .disclosure-grid { grid-template-columns: 1fr; } .info-card, .policy-card, .partner-card, .policy-requests { padding: 1.2rem; } .voice-controls { flex-wrap: wrap; } }

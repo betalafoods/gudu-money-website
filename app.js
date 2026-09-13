@@ -138,13 +138,18 @@
   let surfOut = null;
   let synthOut = null;
   let musicFileOk = true;
+  let talking = false;
+  const fades = new WeakMap();
 
   music.addEventListener('error', () => { musicFileOk = false; if (soundOn) startSynthMusic(); });
 
   function fadeMedia(el, to, ms, done) {
+    const fadeId = (fades.get(el) || 0) + 1;
+    fades.set(el, fadeId);
     const from = el.volume;
     const start = performance.now();
     (function step(now) {
+      if (fades.get(el) !== fadeId) return;
       const k = Math.min(1, (now - start) / ms);
       el.volume = Math.max(0, Math.min(1, from + (to - from) * k));
       if (k < 1) requestAnimationFrame(step); else if (done) done();
@@ -199,13 +204,13 @@
       lfo.start();
     }
     surfOut.gain.cancelScheduledValues(ac.currentTime);
-    surfOut.gain.setTargetAtTime(0.32, ac.currentTime, 1.2);
+    surfOut.gain.setTargetAtTime(talking || !soundOn ? 0 : 0.32, ac.currentTime, 1.2);
   }
 
   // Fallback score if the music file can't load: slow warm pads.
   function startSynthMusic() {
     const ac = audioContext();
-    if (!ac || synthOut) { if (synthOut && ac) synthOut.gain.setTargetAtTime(0.18, ac.currentTime, 1.5); return; }
+    if (!ac || synthOut) { if (synthOut && ac) synthOut.gain.setTargetAtTime(!soundOn ? 0 : talking ? 0.045 : 0.18, ac.currentTime, 1.5); return; }
     synthOut = ac.createGain();
     synthOut.gain.value = 0;
     const lp = ac.createBiquadFilter();
@@ -255,7 +260,7 @@
     };
     play();
     setInterval(() => { if (ac.state === 'running') play(); }, bar * 1000);
-    synthOut.gain.setTargetAtTime(0.18, ac.currentTime, 1.5);
+    synthOut.gain.setTargetAtTime(!soundOn ? 0 : talking ? 0.045 : 0.18, ac.currentTime, 1.5);
   }
 
   function renderSound() {
@@ -271,7 +276,7 @@
     startSurf();
     if (musicFileOk) {
       music.volume = 0;
-      music.play().then(() => fadeMedia(music, 0.5, 3500)).catch(() => { musicFileOk = false; startSynthMusic(); });
+      music.play().then(() => { if (soundOn) fadeMedia(music, talking ? 0.12 : 0.5, 1000); else music.pause(); }).catch(() => { musicFileOk = false; if (soundOn) startSynthMusic(); });
     } else {
       startSynthMusic();
     }
@@ -283,8 +288,7 @@
     fadeMedia(music, 0, 900, () => music.pause());
     if (actx && surfOut) surfOut.gain.setTargetAtTime(0, actx.currentTime, 0.4);
     if (actx && synthOut) synthOut.gain.setTargetAtTime(0, actx.currentTime, 0.4);
-    if ('speechSynthesis' in window) speechSynthesis.cancel();
-    guideEl.classList.remove('is-speaking');
+    narrator.cancel();
   }
 
   soundBtn.addEventListener('click', (e) => {
@@ -297,7 +301,7 @@
   if (!userMuted) {
     music.volume = 0;
     music.play()
-      .then(() => { soundOn = true; renderSound(); fadeMedia(music, 0.5, 4000); startSurf(); })
+      .then(() => { if (userMuted) { music.pause(); return; } soundOn = true; renderSound(); fadeMedia(music, talking ? 0.12 : 0.5, 1000); startSurf(); })
       .catch(() => { renderSound(); });
   } else {
     renderSound();
@@ -345,44 +349,29 @@
     },
   };
 
-  const RATE = 24; // % p.a., illustration only
+  const RATE = 35; // % p.a., illustration only
 
   const steps = [
     {
       id: 'name', type: 'text',
-      say: {
-        en: () => "Hello, I'm Ananya from Sonu Marketing. I'll ask you a few quick questions and show you an honest estimate. First, what should I call you?",
-        hi: () => 'नमस्ते, मैं सोनू मार्केटिंग से अनन्या हूँ। मैं आपसे कुछ आसान सवाल पूछूँगी और आपको एक सच्चा अनुमान दिखाऊँगी। सबसे पहले, मैं आपको किस नाम से बुलाऊँ?',
-      },
     },
     {
       id: 'purpose', type: 'chips',
-      say: {
-        en: (a) => `Lovely to meet you, ${a.name}. What do you need the money for?`,
-        hi: (a) => `आपसे मिलकर अच्छा लगा, ${a.name}। आपको पैसों की ज़रूरत किस लिए है?`,
-      },
       options: [['medical', 'Medical', 'इलाज'], ['education', 'Education', 'पढ़ाई'], ['home', 'Home repair', 'घर की मरम्मत'], ['wedding', 'Wedding', 'शादी'], ['business', 'Business', 'व्यापार'], ['other', 'Something else', 'कुछ और']],
     },
     {
-      id: 'amount', type: 'slider', min: 5000, max: 200000, step: 1000, value: 50000, fmt: rupees,
-      say: {
-        en: (a) => a.purpose === 'medical' ? "I hope everyone is alright. How much would help?" : 'Got it. How much would help?',
-        hi: (a) => a.purpose === 'medical' ? 'उम्मीद है सब ठीक है। कितनी रकम से मदद होगी?' : 'समझ गई। कितनी रकम से मदद होगी?',
-      },
+      id: 'amount', type: 'slider', min: 50000, max: 200000, step: 1000, value: 50000, fmt: rupees,
     },
     {
       id: 'work', type: 'chips',
-      say: { en: () => 'How do you earn your income?', hi: () => 'आपकी आमदनी कैसे होती है?' },
       options: [['salaried', 'Salaried', 'नौकरी'], ['self', 'Self-employed', 'स्वरोज़गार'], ['business', 'Own a business', 'अपना व्यापार']],
     },
     {
       id: 'income', type: 'slider', min: 10000, max: 300000, step: 1000, value: 35000, fmt: rupees,
-      say: { en: () => 'Roughly how much comes in each month?', hi: () => 'हर महीने लगभग कितनी आमदनी होती है?' },
     },
     {
       id: 'tenure', type: 'chips',
-      say: { en: () => 'Last one. Over how many months would you like to repay?', hi: () => 'आख़िरी सवाल। आप कितने महीनों में चुकाना चाहेंगे?' },
-      options: [['3', '3 months', '3 महीने'], ['6', '6 months', '6 महीने'], ['12', '12 months', '12 महीने'], ['24', '24 months', '24 महीने']],
+      options: [['12', '12 months', '12 महीने'], ['18', '18 months', '18 महीने'], ['24', '24 months', '24 महीने'], ['36', '36 months', '36 महीने']],
     },
   ];
 
@@ -395,55 +384,45 @@
 
   function estimate(a) {
     const n = Number(a.tenure);
-    const r = RATE / 1200;
-    const maxEmi = a.income * 0.4; // keep repayments within ~40% of monthly income
-    const affordable = maxEmi * (1 - Math.pow(1 + r, -n)) / r;
-    const amount = Math.max(5000, Math.floor(Math.min(a.amount, affordable) / 1000) * 1000);
-    return { amount, n, emi: emiFor(amount, n, RATE), trimmed: amount < a.amount };
+    const amount = Number(a.amount);
+    return { amount, n, emi: emiFor(amount, n, RATE), trimmed: false };
   }
 
   /* voice */
-  let voices = [];
-  const loadVoices = () => { voices = speechSynthesis.getVoices(); };
-  if ('speechSynthesis' in window) { loadVoices(); speechSynthesis.addEventListener('voiceschanged', loadVoices); }
-  const FEMALE = /female|woman|heera|neerja|swara|kalpana|aditi|raveena|veena|lekha|priya|zira|samantha|susan|hazel|libby|sonia|aria|jenny|natasha|google (uk english female|हिन्दी)/i;
-  const MALE = /\b(male|ravi|hemant|prabhat|madhur|david|mark|george|guy|ryan|daniel|rishi)\b/i;
-  function pickVoice(l) {
-    const prefs = l === 'hi' ? ['hi-in'] : ['en-in', 'en-gb', 'en-us', 'en'];
-    for (const p of prefs) {
-      const pool = voices.filter((v) => v.lang.replace('_', '-').toLowerCase().startsWith(p));
-      const f = pool.find((v) => FEMALE.test(v.name)) || pool.find((v) => !MALE.test(v.name));
-      if (f) return f;
-    }
-    return voices.find((v) => FEMALE.test(v.name)) || null;
-  }
-  const spoken = (text) => text.replace(/₹\s?([\d,]+)/g, (_, n) => `${n} ${lang === 'hi' ? 'रुपये' : 'rupees'}`).replace(/EMI/g, 'E M I');
-
   let typing = 0;
-  function caption(text) {
+  const narrator = SonuSpeech.create({
+    audio: $('#narration'),
+    synth: window.speechSynthesis,
+    Utterance: window.SpeechSynthesisUtterance,
+    setTalking(value) {
+      talking = value;
+      guideEl.classList.toggle('is-speaking', value);
+      if (actx && surfOut) {
+        surfOut.gain.cancelScheduledValues(actx.currentTime);
+        if (value || !soundOn) surfOut.gain.setValueAtTime(0, actx.currentTime);
+        else surfOut.gain.setTargetAtTime(0.32, actx.currentTime, 0.8);
+      }
+      if (actx && synthOut) {
+        synthOut.gain.cancelScheduledValues(actx.currentTime);
+        synthOut.gain.setTargetAtTime(!soundOn ? 0 : value ? 0.045 : 0.18, actx.currentTime, 0.2);
+      }
+      fadeMedia(music, !soundOn ? 0 : value ? 0.12 : 0.5, value ? 180 : 800);
+    },
+    setStatus(message) { $('#voiceStatus').textContent = message; },
+  });
+  let recordingKey = null;
+  function say(text, then, key) {
+    recordingKey = key;
     ++typing;
+    const id = typing;
     captionEl.textContent = text;
-  }
-
-  function say(text, then) {
-    caption(text);
-    const canSpeak = soundOn && 'speechSynthesis' in window;
-    if (!canSpeak) { setTimeout(() => then && then(), reduceMotion ? 0 : Math.min(1800, text.length * 22)); return; }
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(spoken(text));
-    const v = pickVoice(lang);
-    if (v) u.voice = v;
-    u.lang = v ? v.lang : (lang === 'hi' ? 'hi-IN' : 'en-IN');
-    u.rate = lang === 'hi' ? 0.95 : 0.98;
-    u.pitch = 1.08;
-    let finished = false;
-    const done = () => { if (finished) return; finished = true; guideEl.classList.remove('is-speaking'); if (music.volume < 0.5 && soundOn) fadeMedia(music, 0.5, 800); then && then(); };
-    u.onstart = () => { guideEl.classList.add('is-speaking'); if (soundOn) fadeMedia(music, 0.18, 500); };
-    u.onend = done;
-    u.onerror = done;
-    // Answers unlock after a short beat even if the voice engine never reports "end".
-    setTimeout(() => { if (!finished) then && then(); then = null; }, Math.min(2500, text.length * 30));
-    speechSynthesis.speak(u);
+    if (soundOn) narrator.speak(text, lang, key ? `ananya-${lang}-${key}.mp3` : null);
+    else {
+      narrator.cancel();
+      $('#voiceStatus').textContent = lang === 'hi' ? 'आवाज़ बंद है। सुनने के लिए फिर सुनें दबाएँ।' : 'Sound is off. Select Replay to hear Ananya.';
+    }
+    // Wait for the form to be built; never focus an old step after cancellation.
+    setTimeout(() => { if (id === typing && !guideEl.hidden && then) then(); }, 0);
   }
 
   const guide = {
@@ -461,8 +440,7 @@
       ++typing;
       guideEl.hidden = true;
       ananyaVideo.pause();
-      if ('speechSynthesis' in window) speechSynthesis.cancel();
-      guideEl.classList.remove('is-speaking');
+      narrator.cancel();
     },
     repeat() { if (!guideEl.hidden) this.render(); },
     progress() {
@@ -480,7 +458,8 @@
       if (this.step >= steps.length) return this.result();
       const s = steps[this.step];
       this.current = s;
-      say(s.say[lang](this.answers), () => { answerEl.dataset.state = 'ready'; const f = answerEl.querySelector('input, button'); if (f && matchMedia('(pointer: fine)').matches) f.focus({ preventScroll: true }); });
+      const key = s.id === 'amount' && this.answers.purpose === 'medical' ? 'medical' : s.id;
+      say(SONU_NARRATION[lang][key], () => { answerEl.dataset.state = 'ready'; const f = answerEl.querySelector('input, button'); if (f && matchMedia('(pointer: fine)').matches) f.focus({ preventScroll: true }); }, key);
       this.buildInput(s);
     },
     buildInput(s) {
@@ -490,7 +469,7 @@
           <div class="row"><span></span><button class="btn btn-gold btn-sm send" type="submit">${t.next}</button></div>`;
         answerEl.onsubmit = (e) => {
           e.preventDefault();
-          const v = answerEl.v.value.trim().replace(/[^\p{L}\s.'-]/gu, '').slice(0, 30);
+          const v = answerEl.v.value.trim().replace(/[^\p{L}\p{M}\s.'-]/gu, '').slice(0, 30);
           if (!v) { answerEl.v.focus(); return; }
           this.answer(s.id, v.split(/\s+/)[0]);
         };
@@ -528,9 +507,6 @@
       const t = T[lang];
       const a = this.answers;
       const est = estimate(a);
-      const line = lang === 'hi'
-        ? `${a.name}, आपने जो बताया उसके हिसाब से, लगभग ${rupees(est.amount)} ${est.n} महीनों के लिए, करीब ${rupees(est.emi)} महीना।${est.trimmed ? ' मैंने राशि थोड़ी कम रखी है ताकि किस्त आपकी आमदनी के अंदर रहे।' : ''} यह सिर्फ़ एक अनुमान है — असली ऑफ़र जाँच के बाद, साइन करने से पहले की फ़ैक्ट्स स्टेटमेंट के साथ मिलता है।`
-        : `${a.name}, based on what you've told me, about ${rupees(est.amount)} over ${est.n} months, at roughly ${rupees(est.emi)} a month.${est.trimmed ? " I've kept the amount a little lower so the instalment stays comfortable for your income." : ''} This is only an estimate. A real offer comes after verification, with a Key Facts Statement before you sign anything.`;
       answerEl.onsubmit = (e) => e.preventDefault();
       answerEl.innerHTML = `
         <div class="offer">
@@ -552,7 +528,7 @@
         this.close();
         document.getElementById('emi').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
       });
-      say(line, () => { answerEl.dataset.state = 'ready'; });
+      say(SONU_NARRATION[lang].result, () => { answerEl.dataset.state = 'ready'; }, 'result');
     },
   };
 
@@ -562,6 +538,9 @@
     lang = l;
     store.set('sonu-lang', l);
     guideEl.lang = l;
+    $('#replayVoice').textContent = l === 'hi' ? 'फिर सुनें' : 'Replay';
+    $('#guideClose').setAttribute('aria-label', l === 'hi' ? 'अनन्या को बंद करें' : 'Close Ananya');
+    $('.guide-note').textContent = l === 'hi' ? 'यह केवल एक उदाहरण है। आपके उत्तर जमा नहीं किए जाते। ध्वनि और भाषा की पसंद इस ब्राउज़र में याद रखी जाती है।' : 'An illustration only. Answers are not submitted. Sound and language preferences are remembered in this browser.';
     $$('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
     guide.repeat();
   }
@@ -584,8 +563,11 @@
   $('#guideClose').addEventListener('click', () => { store.set('sonu-guide', 'closed'); guide.close(); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && !guideEl.hidden) guide.close(); });
 
-  // Ananya walks in on her own after the opening shot, even before anyone taps.
-  guideEl.lang = lang;
+  setLang(lang);
+  $('#replayVoice').addEventListener('click', () => {
+    if (!soundOn) { userMuted = false; store.set('sonu-sound', 'on'); soundUp(); }
+    narrator.speak(captionEl.textContent, lang, recordingKey ? `ananya-${lang}-${recordingKey}.mp3` : null);
+  });
 
   /* ------------------------------------------------------------------ */
   /* EMI calculator                                                      */

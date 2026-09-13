@@ -1,14 +1,19 @@
-# Gudu Money — Digital Lending Landing Page
+# Sonu Marketing — Loans by the Sea
 
-A static marketing landing page for "Gudu Money," a digital lending brand, featuring an interactive loan EMI calculator. Placeholder content throughout — no real branding, copy, or backend.
+Static demonstration website for Sonu Marketing Private Limited (trade name: Brahma Finance).
 
-## Structure
-- `index.html` — page content and structure
-- `styles.css` — styling and responsive layout
-- `script.js` — EMI calculator logic and small UI interactions
+- `index.html`: landing page, calculator, company contacts, policy directory and lending platforms.
+- `styles.css`: responsive typography and layout.
+- `app.js`: calculator, guide and ambient audio.
+- `speech.js`: cancellation-safe narration and ocean/music volume coordination.
+- `narration.js`: fixed English and Hindi narration text.
+- `ananya-en-*.mp3` / `ananya-hi-*.mp3`: fixed Indian English and Hindi recordings generated from those scripts with Google TTS (India locale). No visitor answers are sent for speech generation.
 
-## Running locally
-Open `index.html` directly in a browser, or serve the folder with any static file server.
+Serve this directory with a static HTTP server. Deploy from the `master` branch to the existing Vercel project.
 
-## Disclaimer
-This is a demo/placeholder site created for illustrative purposes only. It is not affiliated with any real lending entity and does not process real loan applications.
+Company and policy sources, reviewed 13 September 2026:
+- https://www.brahmafinance.in/
+- https://www.brahmafinance.in/privacy-policy
+- https://www.brahmafinance.in/lending-service-providers
+
+The policy directory links to official documents. Five policy titles have no document links on the official directory and therefore offer a request-copy email link. The calculator is illustrative, excludes processing fees and taxes, and does not approve loans or accept applications. The currently unused `script.js` is retained from the original repository.

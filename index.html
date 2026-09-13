@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sonu Marketing · Loans by the Sea</title>
-<meta name="description" content="Small personal loans from Sonu Marketing (NBFC, RBI reg. NB36250001). Talk to Ananya, check an estimate in a minute, and see exactly what you'll pay.">
+<meta name="description" content="Small personal loans from Sonu Marketing (NBFC, RBI reg. B.05.04069). Talk to Ananya, check an estimate in a minute, and see exactly what you'll pay.">
 <meta name="theme-color" content="#06222b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,14 +39,16 @@
     <nav class="nav-links" aria-label="Sections">
       <a href="#how">How it works</a>
       <a href="#emi">EMI calculator</a>
-      <a href="#promise">Our promise</a>
+      <a href="#company">Company</a>
+      <a href="#policies">Policies</a>
+      <a href="#partners">Partners</a>
       <a href="#faq">FAQ</a>
     </nav>
     <button class="btn btn-gold btn-sm" data-open-guide>Check eligibility</button>
   </header>
 
   <div class="hero-copy">
-    <p class="eyebrow reveal" style="--d:.2s">Personal loans · ₹5,000 to ₹2,00,000</p>
+    <p class="eyebrow reveal" style="--d:.2s">Personal loans · ₹50,000 to ₹2,00,000</p>
     <h1 class="reveal" style="--d:.45s">When the tide is against you,<br><em>we help it turn.</em></h1>
     <p class="lede reveal" style="--d:.7s">Talk to Ananya for a minute. She'll ask a few simple questions and show you an honest estimate &mdash; every rupee explained before you decide anything.</p>
     <div class="hero-cta reveal" style="--d:.95s">
@@ -91,8 +93,9 @@
   <div class="guide-body">
     <ol class="progress" id="progress" aria-label="Question progress"></ol>
     <p class="caption" id="caption"></p>
+    <div class="voice-controls"><button type="button" class="btn btn-ghost btn-sm" id="replayVoice">Replay</button><p id="voiceStatus" class="voice-status" role="status"></p></div>
     <form class="answer" id="answer" autocomplete="off"></form>
-    <p class="guide-note">An illustration only. Your answers stay in this browser &mdash; nothing is sent or stored.</p>
+    <p class="guide-note">An illustration only. Answers are not submitted. Sound and language preferences are remembered in this browser.</p>
   </div>
 </aside>
 
@@ -129,22 +132,22 @@
       <div>
         <p class="kicker">EMI calculator</p>
         <h2>Move the sliders. Watch the tide.</h2>
-        <p class="muted-lede">Reducing-balance EMI. The rate here is for illustration &mdash; your actual rate is in the Key Facts Statement for your offer.</p>
+        <p class="muted-lede">Reducing-balance EMI, excluding processing fees and taxes. The interest rate is illustrative and is not APR. Your actual charges and APR are set out in the Key Facts Statement.</p>
 
         <div class="field">
           <div class="field-head"><label for="emiAmount">Loan amount</label><output id="emiAmountOut" class="num"></output></div>
-          <input type="range" id="emiAmount" min="5000" max="200000" step="1000" value="50000">
-          <div class="field-scale num"><span>₹5,000</span><span>₹2,00,000</span></div>
+          <input type="range" id="emiAmount" min="50000" max="200000" step="1000" value="50000">
+          <div class="field-scale num"><span>₹50,000</span><span>₹2,00,000</span></div>
         </div>
         <div class="field">
           <div class="field-head"><label for="emiTenure">Repay over</label><output id="emiTenureOut" class="num"></output></div>
-          <input type="range" id="emiTenure" min="3" max="36" step="1" value="12">
-          <div class="field-scale num"><span>3 months</span><span>36 months</span></div>
+          <input type="range" id="emiTenure" min="12" max="36" step="1" value="12">
+          <div class="field-scale num"><span>12 months</span><span>36 months</span></div>
         </div>
         <div class="field">
           <div class="field-head"><label for="emiRate">Interest rate (illustrative)</label><output id="emiRateOut" class="num"></output></div>
-          <input type="range" id="emiRate" min="12" max="36" step="0.5" value="24">
-          <div class="field-scale num"><span>12% p.a.</span><span>36% p.a.</span></div>
+          <input type="range" id="emiRate" min="12" max="60" step="0.5" value="35">
+          <div class="field-scale num"><span>12% p.a.</span><span>60% p.a.</span></div>
         </div>
       </div>
 
@@ -165,54 +168,16 @@
     </div>
   </section>
 
-  <!-- ============ COLLECTION PROMISE ============ -->
-  <section class="section light" id="promise">
+  <section class="section fund" id="lending-details">
     <div class="wrap">
-      <p class="kicker">Our promise if you fall behind</p>
-      <h2>Life happens. Here is exactly how we'll behave.</h2>
-      <div class="promise-grid">
-        <article>
-          <p class="promise-fig num">8am&ndash;7pm</p>
-          <h3>Only in daytime hours</h3>
-          <p>No calls or messages outside 08:00&ndash;19:00 IST. Ever.</p>
-        </article>
-        <article>
-          <p class="promise-fig num">3 a day</p>
-          <h3>A firm limit on contact</h3>
-          <p>At most three attempts a day across every channel, two of them calls, and twelve in a week. That is our own policy.</p>
-        </article>
-        <article>
-          <p class="promise-fig">Just you</p>
-          <h3>Never your family or employer</h3>
-          <p>We never contact relatives, employers or references about your loan.</p>
-        </article>
-        <article>
-          <p class="promise-fig">Paid?</p>
-          <h3>We check, not argue</h3>
-          <p>Tell us you've paid and we pause reminders straight away while we find your payment.</p>
-        </article>
-        <article>
-          <p class="promise-fig">Honest</p>
-          <h3>Automated means we say so</h3>
-          <p>If an automated assistant contacts you, it says so in its first sentence and can connect you to a person.</p>
-        </article>
-        <article>
-          <p class="promise-fig num">Ref. no.</p>
-          <h3>Every complaint is logged</h3>
-          <p>A complaint gets a reference number the moment you raise it, and a written answer within the deadline.</p>
-        </article>
+      <p class="kicker">Published product information</p>
+      <h2>Know the cost before you decide.</h2>
+      <div class="disclosure-grid">
+        <div><strong>₹50,000–₹2,00,000</strong><span>Personal loan range</span></div>
+        <div><strong>12–36 months</strong><span>Repayment tenure</span></div>
+        <div><strong>35%–90% APR</strong><span>Published annual percentage rate range</span></div>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ GIRL CHILD FUND ============ -->
-  <section class="section fund">
-    <div class="wrap fund-inner">
-      <p class="fund-fig num">3%</p>
-      <div>
-        <h2>Every loan repaid helps a girl go to school.</h2>
-        <p>When a loan is repaid, Sonu Marketing sets aside 3% of its processing fee for the education of a girl child. Counted once per loan &mdash; quietly, every time.</p>
-      </div>
+      <p>Eligibility, fees and the final offer depend on the lender’s assessment. Read the Key Facts Statement before accepting a loan. <a href="https://www.brahmafinance.in/" target="_blank" rel="noopener noreferrer">See Brahma Finance’s published disclosures ↗</a></p>
     </div>
   </section>
 
@@ -223,7 +188,7 @@
       <h2>Straight answers.</h2>
       <details>
         <summary>Is Ananya a real person?</summary>
-        <p>Ananya is our guide on this site. The questions and voice are automated, and we'll always tell you when you are speaking with an automated assistant. You can ask for a person at any time.</p>
+        <p>Ananya is an automated guide, with recorded Indian English and Hindi narration. For help from a person, use our <a href="#company">company contacts</a>.</p>
       </details>
       <details>
         <summary>Does checking my estimate affect my credit score?</summary>
@@ -235,24 +200,67 @@
       </details>
       <details>
         <summary>What if I can't pay on time?</summary>
-        <p>Tell us. If your salary is late, you've lost a job or there's a medical emergency, we record what you tell us, pause reminders where our policy allows, and work out a date with you. See <a href="#promise">our promise</a>.</p>
+        <p>Contact the company to discuss your situation and repayment options. Use the <a href="#company">published support contacts</a>. This demonstration cannot record requests or change a loan account.</p>
       </details>
       <details>
         <summary>How do I raise a complaint?</summary>
-        <p>Tell us on any channel. It is logged immediately with a reference number, and you receive a written response within the published deadline. If you're not satisfied, you can escalate to the RBI Ombudsman.</p>
+        <p>Contact the published Grievance Officer, Mr. Kathik T, at <a href="mailto:loans@brahmafinance.in">loans@brahmafinance.in</a> or <a href="tel:+918123679365">+91 81236 79365</a>. Ask for the current Grievances Redressal Mechanism and escalation process.</p>
       </details>
     </div>
   </section>
+
+
+<section class="section light" id="company">
+  <div class="wrap">
+    <p class="kicker">Company & contact</p>
+    <h2>Sonu Marketing Private Limited</h2>
+    <p class="section-intro">Operating as <strong>Brahma Finance</strong>. Personal and mortgage lending, with an emphasis on financial inclusion and borrower education.</p>
+    <div class="company-grid">
+      <article class="info-card"><h3>Company registration</h3><dl><dt>CIN</dt><dd>U51909WB1995PTC068572</dd><dt>RBI Certificate of Registration</dt><dd>B.05.04069 · NBFC-BL</dd></dl></article>
+      <article class="info-card"><h3>Registered office</h3><address>Shree Krishna Chambers, Block B, 4th Floor, Room 4D,<br>78 Bentinck Street, Kolkata,<br>West Bengal 700001, India.</address></article>
+      <article class="info-card"><h3>Corporate office</h3><address>#30, 2nd Floor, 1st Main, BHCS Layout,<br>BTM 2nd Stage, opposite Gopalan Innovation Mall,<br>Bengaluru, Karnataka 560076.</address></article>
+      <article class="info-card"><h3>Customer support</h3><p><a href="mailto:Hello@brahmafinance.in">Hello@brahmafinance.in</a><br><a href="tel:+918041536980">080-41536980</a><br><a href="tel:+918041680169">080-41680169</a></p></article>
+      <article class="info-card"><h3>Grievance Officer</h3><p><strong>Mr. Kathik T</strong><br><a href="mailto:loans@brahmafinance.in">loans@brahmafinance.in</a><br><a href="tel:+918123679365">+91 81236 79365</a></p></article>
+      <article class="info-card"><h3>Nodal Officer</h3><p><strong>Abhishek M R</strong><br><a href="mailto:abhi@brahmafinance.in">abhi@brahmafinance.in</a><br><a href="tel:+917259333111">+91 72593 33111</a></p></article>
+    </div>
+    <p class="source-note">Company and grievance details: <a href="https://www.brahmafinance.in/#contact%20us" target="_blank" rel="noopener noreferrer">official company page <span aria-hidden="true">↗</span></a>. Nodal Officer: <a href="https://www.brahmafinance.in/privacy-policy" target="_blank" rel="noopener noreferrer">official Privacy Policy <span aria-hidden="true">↗</span></a>. Reviewed 13 September 2026.</p>
+  </div>
+</section>
+<section class="section deep" id="policies">
+  <div class="wrap">
+    <p class="kicker">Policies & customer information</p>
+    <h2>The details, within reach.</h2>
+    <p class="section-intro">Read the company’s published policies on Brahma Finance. Links open the official source so you can see the current wording.</p>
+    <div class="policy-grid"><article class="policy-card"><h3>Privacy Policy</h3><p>How personal information is handled.</p><a href="https://www.brahmafinance.in/privacy-policy" target="_blank" rel="noopener noreferrer">Read official policy <span aria-hidden="true">↗</span></a></article><article class="policy-card"><h3>Terms & Conditions</h3><p>Conditions governing use of the official website and services.</p><a href="https://www.brahmafinance.in/terms-conditions" target="_blank" rel="noopener noreferrer">Read official policy <span aria-hidden="true">↗</span></a></article><article class="policy-card"><h3>Refund & Cancellation Policy</h3><p>The published rules for refunds and cancellation.</p><a href="https://www.brahmafinance.in/refund-cancellation" target="_blank" rel="noopener noreferrer">Read official policy <span aria-hidden="true">↗</span></a></article><article class="policy-card"><h3>Write-Off Policy</h3><p>How the company addresses irrecoverable loans.</p><a href="https://www.brahmafinance.in/write-off" target="_blank" rel="noopener noreferrer">Read official policy <span aria-hidden="true">↗</span></a></article><article class="policy-card"><h3>Corporate Governance Policy</h3><p>Published within the official Privacy Policy.</p><a href="https://www.brahmafinance.in/privacy-policy" target="_blank" rel="noopener noreferrer">Read official policy <span aria-hidden="true">↗</span></a></article><article class="policy-card"><h3>Risk Management Policy</h3><p>Published within the official Privacy Policy.</p><a href="https://www.brahmafinance.in/privacy-policy" target="_blank" rel="noopener noreferrer">Read official policy <span aria-hidden="true">↗</span></a></article></div>
+    <div class="policy-requests"><h3>Additional policies listed by the company</h3><p>The official directory lists these five policies but currently provides no document links. Request the current document from customer support.</p><ul><li><span>Fair Practices Code</span><a href="mailto:Hello@brahmafinance.in?subject=Request%20for%20Fair%20Practices%20Code">Request copy</a></li><li><span>Know Your Customer</span><a href="mailto:Hello@brahmafinance.in?subject=Request%20for%20Know%20Your%20Customer">Request copy</a></li><li><span>Demand & Call Loan Policy</span><a href="mailto:Hello@brahmafinance.in?subject=Request%20for%20Demand%20%26%20Call%20Loan%20Policy">Request copy</a></li><li><span>Grievances Redressal Mechanism</span><a href="mailto:Hello@brahmafinance.in?subject=Request%20for%20Grievances%20Redressal%20Mechanism">Request copy</a></li><li><span>Interest Rate Policy</span><a href="mailto:Hello@brahmafinance.in?subject=Request%20for%20Interest%20Rate%20Policy">Request copy</a></li></ul><a href="https://www.brahmafinance.in/#policies" target="_blank" rel="noopener noreferrer">View official policy directory <span aria-hidden="true">↗</span></a></div>
+    <div class="resource-links"><a href="https://www.brahmafinance.in/faqs" target="_blank" rel="noopener noreferrer">Company FAQs <span aria-hidden="true">↗</span></a><a href="https://www.brahmafinance.in/other-services" target="_blank" rel="noopener noreferrer">Account Aggregator <span aria-hidden="true">↗</span></a><a href="https://www.brahmafinance.in/personal-loan" target="_blank" rel="noopener noreferrer">Personal loans <span aria-hidden="true">↗</span></a><a href="https://www.brahmafinance.in/mortgage-loan" target="_blank" rel="noopener noreferrer">Mortgage loans <span aria-hidden="true">↗</span></a></div>
+  </div>
+</section>
+<section class="section light" id="partners">
+  <div class="wrap">
+    <p class="kicker">Digital lending</p>
+    <h2>Platforms listed by Brahma Finance.</h2>
+    <p class="section-intro">Lending service providers and digital lending apps from the company’s <a href="https://www.brahmafinance.in/lending-service-providers" target="_blank" rel="noopener noreferrer">official directory <span aria-hidden="true">↗</span></a>. Each service has its own terms and privacy practices.</p>
+    <div class="partner-grid">
+      <article class="partner-card"><p class="kicker">Digital lending platform</p><h3>Trust Paisa</h3><ul><li><a href="https://trustpaisa.com/" target="_blank" rel="noopener noreferrer">Website <span aria-hidden="true">↗</span></a></li><li><a href="https://apps.apple.com/in/app/trustpaisa-easy-personal-loans/id6742022502" target="_blank" rel="noopener noreferrer">iOS app <span aria-hidden="true">↗</span></a></li><li><a href="https://play.google.com/store/apps/details?id=trustpaisa.app" target="_blank" rel="noopener noreferrer">Android app <span aria-hidden="true">↗</span></a></li></ul></article>
+      <article class="partner-card"><p class="kicker">Digital lending app</p><h3>Credit Lab</h3><ul><li><a href="https://creditlab.in/" target="_blank" rel="noopener noreferrer">Website <span aria-hidden="true">↗</span></a></li><li><a href="https://creditlab.in/privacy" target="_blank" rel="noopener noreferrer">Privacy policy <span aria-hidden="true">↗</span></a></li><li><a href="https://creditlab.in/grievanceredressal.pdf" target="_blank" rel="noopener noreferrer">Grievance policy (PDF) <span aria-hidden="true">↗</span></a></li></ul></article>
+      <article class="partner-card"><p class="kicker">Lending service provider</p><h3>AlphaRupee</h3><ul><li><a href="https://alpharupee.in/" target="_blank" rel="noopener noreferrer">Website <span aria-hidden="true">↗</span></a></li><li><a href="https://alpharupee.in/privacy" target="_blank" rel="noopener noreferrer">Privacy policy <span aria-hidden="true">↗</span></a></li><li><a href="https://alpharupee.in/grievance" target="_blank" rel="noopener noreferrer">Grievance support <span aria-hidden="true">↗</span></a></li></ul></article>
+      <article class="partner-card"><p class="kicker">Lending service provider</p><h3>CLICKRA</h3><ul><li><a href="https://clickra.in/" target="_blank" rel="noopener noreferrer">Website <span aria-hidden="true">↗</span></a></li><li><a href="https://clickra.in/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy policy <span aria-hidden="true">↗</span></a></li><li><a href="https://clickra.in/grievance" target="_blank" rel="noopener noreferrer">Grievance support <span aria-hidden="true">↗</span></a></li></ul></article>
+    </div>
+    <p class="source-note">Directory reviewed 13 September 2026. Follow the official directory for changes to the list.</p>
+  </div>
+</section>
 
 </main>
 
 <footer class="footer">
   <div class="wrap footer-grid">
     <div>
-      <p class="footer-brand">Sonu Marketing</p>
-      <p>Non-Banking Financial Company registered with the Reserve Bank of India, registration NB36250001.</p>
-      <p class="demo-note">This website is a demonstration. It does not take loan applications, and your answers never leave your browser.</p>
+      <p class="footer-brand">Sonu Marketing Pvt. Ltd.</p><p>Trade name: Brahma Finance</p>
+      <p>Non-Banking Financial Company registered with the Reserve Bank of India, registration B.05.04069.</p>
+      <p class="demo-note">This website is a demonstration and does not accept loan applications. Answers are not submitted to the company. Narration uses fixed recordings; your answers are not sent to a speech service.</p>
     </div>
+    <nav class="footer-resources" aria-label="Company resources"><a href="#company">Company & contact</a><a href="#policies">Policies</a><a href="#partners">Lending partners</a><a href="#lending-details">Product disclosures</a></nav>
     <div class="credits">
       <p><strong>Credits</strong></p>
       <p>Ocean footage: Pexels video 1093652 (Pexels licence).</p>
@@ -264,6 +272,9 @@
 </footer>
 
 <audio id="music" src="vastness.mp3" loop preload="auto"></audio>
+<audio id="narration" preload="none" hidden></audio>
+<script src="narration.js"></script>
+<script src="speech.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
