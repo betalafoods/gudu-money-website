@@ -487,3 +487,5 @@ input[type="range"] { margin-block: 15px; }
 .guide:lang(hi) .caption { line-height: 1.9; }
 @media (max-width: 1000px) { .company-grid, .policy-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media (max-width: 600px) { .company-grid, .policy-grid, .partner-grid, .disclosure-grid { grid-template-columns: 1fr; } .info-card, .policy-card, .partner-card, .policy-requests { padding: 1.2rem; } .voice-controls { flex-wrap: wrap; } }
+/* APR calculator: web component in apr-calculator.js, sized to the site's type scale */
+apr-calculator { --apr-font-size: var(--step-0); --apr-line: #d4e0db; }

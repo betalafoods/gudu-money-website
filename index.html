@@ -39,6 +39,7 @@
     <nav class="nav-links" aria-label="Sections">
       <a href="#how">How it works</a>
       <a href="#emi">EMI calculator</a>
+      <a href="#apr">APR calculator</a>
       <a href="#company">Company</a>
       <a href="#policies">Policies</a>
       <a href="#partners">Partners</a>
@@ -132,7 +133,7 @@
       <div>
         <p class="kicker">EMI calculator</p>
         <h2>Move the sliders. Watch the tide.</h2>
-        <p class="muted-lede">Reducing-balance EMI, excluding processing fees and taxes. The interest rate is illustrative and is not APR. Your actual charges and APR are set out in the Key Facts Statement.</p>
+        <p class="muted-lede">Reducing-balance EMI, excluding processing fees and taxes. The interest rate is illustrative and is not APR. Your actual charges and APR are set out in the Key Facts Statement. <a href="#apr">Work out the APR with fees included</a>.</p>
 
         <div class="field">
           <div class="field-head"><label for="emiAmount">Loan amount</label><output id="emiAmountOut" class="num"></output></div>
@@ -165,6 +166,16 @@
         </dl>
         <button class="btn btn-gold wide" data-open-guide>Ask Ananya about this</button>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ APR CALCULATOR ============ -->
+  <section class="section light" id="apr">
+    <div class="wrap">
+      <p class="kicker">APR calculator</p>
+      <h2>See the full yearly cost, fees included.</h2>
+      <p class="section-intro">The EMI calculator above shows interest only. This one adds the processing fee, GST and other charges taken before the money reaches you, and works out the annual percentage rate the way RBI’s Key Facts Statement rules require: on the amount you actually receive.</p>
+      <apr-calculator lender="Sonu Marketing Private Limited"></apr-calculator>
     </div>
   </section>
 
@@ -276,5 +287,6 @@
 <script src="narration.js"></script>
 <script src="speech.js"></script>
 <script src="app.js"></script>
+<script src="apr-calculator.js" defer></script>
 </body>
 </html>
